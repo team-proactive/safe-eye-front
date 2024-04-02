@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Safe Eye - 스마트안전 군중밀집/화재 경고알람 서비스
 
-## Getting Started
+(제작 중)
+Safe Eye는 실시간 군중 밀집도 모니터링과 화재 감지 기능을 통합한 스마트 안전 경고 알람 서비스입니다. CCTV 카메라와 AI 기술을 활용하여 안전 관리자가 군중 밀집 상황과 화재 위험을 효과적으로 모니터링하고 신속하게 대응할 수 있도록 지원합니다.
 
-First, run the development server:
+## 주요 기능
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **실시간 모니터링 화면**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   - 다중 CCTV 카메라 피드를 실시간으로 표시
+   - 군중 밀도 히트맵 오버레이와 화재 감지 상태 표시
+   - 실시간 군중 수 및 밀도 백분율 표시
+   - 사용자 정의 가능한 카메라 뷰 및 레이아웃
+   - 이벤트 및 시간대 북마크 및 태그 기능
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **상세 분석 화면**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   - 선택한 카메라 또는 영역의 고해상도 비디오 피드
+   - 시간에 따른 군중 밀도 변화를 보여주는 타임라인 그래프
+   - 화재 감지 이벤트 목록 및 상세 정보
+   - 모니터링 영역의 상세 지도 또는 평면도
+   - 사용자 메모 및 설명 추가 기능
+   - 비디오 클립, 스크린샷 및 이벤트 데이터 내보내기
 
-## Learn More
+3. **경고 및 알람 설정 화면**
 
-To learn more about Next.js, take a look at the following resources:
+   - 맞춤형 군중 밀도 경고 및 화재 감지 알람 임계값 설정
+   - 경고 및 알람 수준에 따른 특정 작업 설정
+   - 생성형 AI 모델을 활용한 맥락 적합 경고 및 알람 메시지 자동 생성
+   - 사용자 정의 가능한 알림 메시지 및 수신자 목록
+   - 정기적인 테스트 및 훈련 예약 기능
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **통계 및 보고 화면**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   - 군중 밀도 추세, 피크 시간 및 평균 밀도에 대한 대화형 그래프와 차트
+   - 군중 밀도 및 화재 사고 지역 히트맵 오버레이
+   - 화재 이벤트에 대한 상세 보고서 생성
+   - 이벤트 데이터 필터링 및 정렬 옵션
+   - 통계 데이터, 이벤트 로그 및 보고서 내보내기
+   - 자동 보고서 생성 및 전달 예약 기능
 
-## Deploy on Vercel
+5. **사용자 관리 및 설정 화면**
+   - 다양한 액세스 수준 및 권한을 가진 사용자 계정 관리
+   - 사용자 프로필 정보 업데이트 및 알림 기본 설정
+   - 글로벌 시스템 설정 구성
+   - AI 모델 관리 및 업데이트
+   - 시스템 상태 모니터링 및 진단 도구
+   - 사용자 인터페이스 테마 및 개인화 옵션
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Safe Eye는 공공 안전, 이벤트 관리, 시설 관리 등 다양한 분야에서 안전 관리자가 군중 밀집과 화재 위험을 효율적으로 모니터링하고 대응할 수 있도록 도와줍니다. AI 기술과 직관적인 사용자 인터페이스를 통해 안전 관리 프로세스를 간소화하고 최적화하며, 잠재적인 위험 상황에 신속하게 대처할 수 있게 합니다.
