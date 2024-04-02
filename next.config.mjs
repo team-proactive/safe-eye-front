@@ -1,9 +1,9 @@
-import withMDX from "@next/mdx";
+// next.config.mjs
+import withTwin from "./withTwin.mjs";
 
-const nextConfig = {
-  // Configure `pageExtensions` to include MDX files
-  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
-  // Optionally, add any other Next.js config below
-};
-
-export default withMDX()(nextConfig);
+/**
+ * @type {import('next').NextConfig}
+ */
+export default withTwin({
+  reactStrictMode: true,
+});
