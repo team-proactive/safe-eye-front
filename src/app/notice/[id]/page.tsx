@@ -12,11 +12,11 @@ export default function NoticeDetail({
   const { data: notice, isLoading, isError } = useNoticeById(id);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Layout>Loading...</Layout>;
   }
 
   if (isError) {
-    return <div>Error occurred while fetching the notice.</div>;
+    return <Layout>Error occurred while fetching the notice.</Layout>;
   }
 
   return (

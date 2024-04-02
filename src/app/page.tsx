@@ -1,12 +1,19 @@
+"use client";
 import Layout from "@/components/Layout";
 import Link from "next/link";
+import styled from "styled-components";
+import tw from "twin.macro";
+
+const Main = styled.main`
+  ${tw`flex  flex-col items-center gap-y-10 p-12`}
+`;
 
 export default function Home() {
   return (
     <Layout>
-      <main className="flex min-h-screen flex-col items-center gap-y-10 p-12">
+      <Main>
         <Link href="/notice"> notice</Link>
-      </main>
+      </Main>
     </Layout>
   );
 }

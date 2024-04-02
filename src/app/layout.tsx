@@ -1,3 +1,5 @@
+import StyledComponentsRegistry from "@/lib/registry";
+import GlobalStyles from "@/styles/GlobalStyles";
 import { QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -41,7 +43,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <StyledComponentsRegistry>
+            <GlobalStyles />
+            {children}
+          </StyledComponentsRegistry>
+        </Providers>
       </body>
     </html>
   );
