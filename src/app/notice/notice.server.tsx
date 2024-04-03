@@ -22,7 +22,9 @@ export default async function NoticePage() {
 }
 
 export async function generateStaticParams() {
-  const notice = await getNotice();
+  const notice = await getNotice({ page_size: 10, page: 1 });
 
-  return notice.map((notice) => ({ id: notice.id }));
+  const data = notice?.results || [];
+
+  return data.map((notice) => ({ id: notice.id }));
 }

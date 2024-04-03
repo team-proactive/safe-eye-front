@@ -1,10 +1,10 @@
 // queries/noticeQueries.ts
-import { Notice } from "@/types/api/notice";
+import { Notice, NoticeRequest, NoticeResponse } from "@/types/api/notice";
 import axiosInstance from "../instance";
 
 export const noticeQueryKeys = {
   notice: (id: number) => ["notice", id],
-  notices: () => ["notices"],
+  notices: (query?: NoticeRequest) => ["notices", query],
 };
 
 export const fetchNoticeById = async (id: number) => {
@@ -12,8 +12,12 @@ export const fetchNoticeById = async (id: number) => {
   return response.data;
 };
 
-export const getNotice = async (): Promise<Notice[]> => {
-  const response = await axiosInstance.get<Notice[]>("notice/");
+export const getNotice = async (
+  query?: NoticeRequest
+): Promise<NoticeResponse> => {
+  const response = await axiosInstance.get<NoticeResponse>("notice/", {
+    params: query,
+  });
   return response.data;
 };
 

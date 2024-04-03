@@ -1,3 +1,5 @@
+import { Pagination, QueryParams } from "./common";
+
 interface Notice {
   id: number;
   title: string;
@@ -6,15 +8,12 @@ interface Notice {
   updated_at: string;
 }
 
-// Notice Request Type
-interface NoticeRequest {
-  title: string;
-  content: string;
+interface NoticeRequest extends QueryParams {
+  title?: string;
+  content?: string;
 }
-
 // Notice Response Type
-interface NoticeResponse {
-  data: Notice;
+interface NoticeResponse extends Pagination<Notice> {
   message: string;
 }
 
