@@ -1,4 +1,5 @@
-import { getNotice, noticeQueryKeys } from "@/api/querys/NOTICE_QUERY";
+import { getNotice, noticeQueryKeys } from "@/api/queries/NOTICE_QUERIES";
+import { Notice } from "@/types/api/notice";
 import {
   HydrationBoundary,
   QueryClient,
@@ -22,9 +23,9 @@ export default async function NoticePage() {
 }
 
 export async function generateStaticParams() {
-  const notice = await getNotice({ page_size: 10, page: 1 });
-
-  const data = notice?.results || [];
-
-  return data.map((notice) => ({ id: notice.id }));
+  const notices = await getNotice({ page: 1, page_size: 10 });
+  const data = notices ? notices.results : [];
+  return data.map((notice: Notice) => ({
+    id: notice.id.toString(),
+  }));
 }

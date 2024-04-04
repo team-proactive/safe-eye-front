@@ -4,10 +4,10 @@ import axiosInstance from "../instance";
 
 export const noticeQueryKeys = {
   notice: (id: number) => ["notice", id],
-  notices: (query?: NoticeRequest) => ["notices", query],
+  notices: (query?: Partial<NoticeRequest>) => ["notices", query],
 };
 
-export const fetchNoticeById = async (id: number) => {
+export const getNoticeById = async (id: number) => {
   const response = await axiosInstance.get<Notice>(`/notice/${id}`);
   return response.data;
 };
