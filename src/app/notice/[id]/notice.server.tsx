@@ -1,5 +1,5 @@
 // notice/[id]/notice.server.tsx
-import { fetchNoticeById, getNotice } from "@/api/querys/NOTICE_QUERY";
+import { getNoticeById } from "@/api/queries/NOTICE_QUERIES";
 import {
   HydrationBoundary,
   QueryClient,
@@ -16,7 +16,7 @@ export default async function NoticeDetailPage({
 
   await queryClient.prefetchQuery({
     queryKey: ["notice", id],
-    queryFn: () => fetchNoticeById(id),
+    queryFn: () => getNoticeById(id),
   });
 
   return (
@@ -24,11 +24,4 @@ export default async function NoticeDetailPage({
       <NoticeDetail params={{ id }} />
     </HydrationBoundary>
   );
-}
-
-export async function generateStaticParams() {
-  const notices = await getNotice();
-  return notices.map((notice) => ({
-    id: notice.id.toString(),
-  }));
 }

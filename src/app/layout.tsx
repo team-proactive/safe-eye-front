@@ -1,6 +1,5 @@
 import StyledComponentsRegistry from "@/lib/registry";
 import GlobalStyles from "@/styles/GlobalStyles";
-import { QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -8,7 +7,22 @@ import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const queryClient = new QueryClient();
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="ko">
+      <body className={inter.className}>
+        <Providers>
+          <StyledComponentsRegistry>
+            <GlobalStyles />
+            {children}
+          </StyledComponentsRegistry>
+        </Providers>
+      </body>
+    </html>
+  );
+}
 
 export const metadata: Metadata = {
   title: {
@@ -36,20 +50,3 @@ export const metadata: Metadata = {
     shortcut: "",
   },
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="ko">
-      <body className={inter.className}>
-        <Providers>
-          <StyledComponentsRegistry>
-            <GlobalStyles />
-            {children}
-          </StyledComponentsRegistry>
-        </Providers>
-      </body>
-    </html>
-  );
-}

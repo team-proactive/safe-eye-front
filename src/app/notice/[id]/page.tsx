@@ -3,6 +3,7 @@
 
 import { useNoticeById } from "@/api/hooks/useNotices";
 import Layout from "@/components/Layout";
+import Link from "next/link";
 
 export default function NoticeDetail({
   params: { id },
@@ -26,7 +27,7 @@ export default function NoticeDetail({
         <p>{notice?.content}</p>
         <p>Created At: {notice?.created_at}</p>
         <p>Updated At: {notice?.updated_at}</p>
-        <a href="/notice">Go Back</a>
+        <Link href="/notice">Go Back</Link>
       </article>
     </Layout>
   );

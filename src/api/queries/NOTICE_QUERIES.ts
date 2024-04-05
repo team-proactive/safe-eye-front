@@ -1,13 +1,18 @@
 // queries/noticeQueries.ts
 import { Notice, NoticeRequest, NoticeResponse } from "@/types/api/notice";
+import { notFound } from "next/navigation";
 import axiosInstance from "../instance";
 
 export const noticeQueryKeys = {
   notice: (id: number) => ["notice", id],
-  notices: (query?: NoticeRequest) => ["notices", query],
+  notices: (query?: Partial<NoticeRequest>) => ["notices", query],
 };
 
-export const fetchNoticeById = async (id: number) => {
+export const getNoticeById = async (id: number) => {
+  if (isNaN(id) || id <= 0) {
+    notFound();
+  }
+
   const response = await axiosInstance.get<Notice>(`/notice/${id}`);
   return response.data;
 };

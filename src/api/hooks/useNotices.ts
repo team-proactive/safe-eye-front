@@ -1,25 +1,25 @@
 // hooks/useNotice.ts
-import { Notice } from "@/types/api/notice";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   deleteNotice,
-  fetchNoticeById,
   getNotice,
+  getNoticeById,
   noticeQueryKeys,
   updateNotice,
-} from "../../querys/NOTICE_QUERY";
+} from "@/api/queries/NOTICE_QUERIES";
+import { Notice, NoticeResponse } from "@/types/api/notice";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useNoticeById = (id: number) => {
   return useQuery<Notice, Error>({
     queryKey: noticeQueryKeys.notice(id),
-    queryFn: () => fetchNoticeById(id),
+    queryFn: () => getNoticeById(id),
   });
 };
 
 export const useNotices = () => {
-  return useQuery<Notice[], Error>({
+  return useQuery<NoticeResponse, Error>({
     queryKey: noticeQueryKeys.notices(),
-    queryFn: getNotice,
+    queryFn: () => getNotice(),
   });
 };
 
