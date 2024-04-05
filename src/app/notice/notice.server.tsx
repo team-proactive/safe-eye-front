@@ -1,3 +1,4 @@
+// app/notice/page.tsx
 import { getNotice, noticeQueryKeys } from "@/api/queries/NOTICE_QUERIES";
 import { Notice } from "@/types/api/notice";
 import {
@@ -11,12 +12,14 @@ export default async function NoticePage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: noticeQueryKeys.notices(),
-    queryFn: () => getNotice(),
+    queryKey: noticeQueryKeys.notices({ page: 1, page_size: 10 }),
+    queryFn: () => getNotice({ page: 1, page_size: 10 }),
   });
 
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
+    <HydrationBoundary state={dehydratedState}>
       <Notices />
     </HydrationBoundary>
   );
