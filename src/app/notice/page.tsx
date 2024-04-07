@@ -13,7 +13,7 @@ export default function Notices() {
   const { currentPage, setCurrentPage } = usePaginationStore();
 
   const { data } = useQuery({
-    queryKey: ["notice", { page: currentPage, pageParam: 10 }],
+    queryKey: ["notices", { page: currentPage, pageParam: 10 }],
     queryFn: () => getNotice({ page: currentPage, page_size: 10 }),
   });
 
