@@ -13,6 +13,7 @@ export default function Home() {
     <Layout>
       <Main>
         <Link href="/notice"> notice</Link>
+        <Link href="/tag"> tag</Link>
       </Main>
     </Layout>
   );

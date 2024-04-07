@@ -1,43 +1,38 @@
 "use client";
-import { getNotice } from "@/api/queries/NOTICE_QUERIES";
+import { getTag } from "@/api/queries/TAG_QUERIES";
 import CustomBoard from "@/components/CustomBoard";
 import Layout from "@/components/Layout";
 import { usePaginationStore } from "@/store/pageStore";
-import { Notice } from "@/types/api/notice";
+import { Tag } from "@/types/api/tag";
 import { useQuery } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import { useMemo } from "react";
 
-export default function Notices() {
+export default function Tags() {
   const { currentPage, setCurrentPage } = usePaginationStore();
 
   const { data } = useQuery({
-    queryKey: ["notices", { page: currentPage, pageParam: 10 }],
-    queryFn: () => getNotice({ page: currentPage, page_size: 10 }),
+    queryKey: ["tags", { page: currentPage, pageParam: 10 }],
+    queryFn: () => getTag({ page: currentPage, page_size: 10 }),
   });
 
-  const columnHelper = createColumnHelper<Notice>();
+  const columnHelper = createColumnHelper<Tag>();
 
-  const noticeData = useMemo(() => data?.results || [], [data]);
+  const tagData = useMemo(() => data?.results || [], [data]);
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("id", {
+      columnHelper.accessor("tag_id", {
         cell: (info) => <p>{info.getValue()}</p>,
         footer: (info) => info.column.id,
       }),
-      columnHelper.accessor("title", {
+      columnHelper.accessor("tag_content", {
         cell: (info) => (
-          <Link href={`/notice/${info.row.getValue("id")}`}>
+          <Link href={`/tag/${info.row.getValue("tag_id")}`}>
             {info.getValue()}
           </Link>
         ),
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("created_at", {
-        cell: (info) => <i>{info.getValue()}</i>,
-        header: () => <span>Created at</span>,
         footer: (info) => info.column.id,
       }),
     ],
@@ -52,7 +47,7 @@ export default function Notices() {
     <Layout>
       <div>
         <CustomBoard
-          data={noticeData}
+          data={tagData}
           columns={columns}
           pagination={{
             next: data?.next ?? null,
