@@ -1,6 +1,6 @@
-// queries/noticeQueries.ts
 import { Notice, NoticeRequest, NoticeResponse } from "@/types/api/notice";
 import { notFound } from "next/navigation";
+import { NOTICE_BASE_URL } from "../constants/urls";
 import axiosInstance from "../instance";
 
 export const noticeQueryKeys = {
@@ -13,14 +13,14 @@ export const getNoticeById = async (id: number) => {
     notFound();
   }
 
-  const response = await axiosInstance.get<Notice>(`/notice/${id}`);
+  const response = await axiosInstance.get<Notice>(`${NOTICE_BASE_URL}${id}`);
   return response.data;
 };
 
 export const getNotice = async (
   query?: NoticeRequest
 ): Promise<NoticeResponse> => {
-  const response = await axiosInstance.get<NoticeResponse>("notice/", {
+  const response = await axiosInstance.get<NoticeResponse>(NOTICE_BASE_URL, {
     params: query,
   });
   return response.data;
@@ -28,12 +28,12 @@ export const getNotice = async (
 
 export const updateNotice = async (id: number, updatedNotice: Notice) => {
   const response = await axiosInstance.put<Notice>(
-    `/notice/${id}`,
+    `${NOTICE_BASE_URL}${id}`,
     updatedNotice
   );
   return response.data;
 };
 
 export const deleteNotice = async (id: number) => {
-  await axiosInstance.delete(`/notice/${id}`);
+  await axiosInstance.delete(`${NOTICE_BASE_URL}${id}`);
 };
