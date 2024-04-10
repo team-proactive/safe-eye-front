@@ -1,8 +1,8 @@
-export type storageProps = {
+export interface storageProps {
   key: string;
   persist: boolean;
   value?: string | "";
-};
+}
 
 /**
  * 스토리지 속성 타입 정의.

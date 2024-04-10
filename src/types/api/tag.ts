@@ -4,7 +4,6 @@ interface Tag {
   id: number;
   tag_type: string;
   tag_content: string;
-  tag_id: number;
   content_type: number;
   object_id: number;
 }
