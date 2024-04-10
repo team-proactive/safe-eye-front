@@ -2,13 +2,15 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { Storage } from "./storage";
 
+export const userUrl = "/accounts/users/";
+
 const refreshAccessToken = async (): Promise<string | null> => {
   const refreshToken = Storage.get({ key: "refreshToken", persist: true });
   try {
-    const response = await axios.post("/auth/refresh", { refreshToken });
-    const { accessToken } = response.data;
-    Storage.set({ key: "token", persist: true, value: accessToken });
-    return accessToken;
+    const response = await axios.post(`${userUrl}refresh/`, { refreshToken });
+    const { access } = response.data;
+    Storage.set({ key: "accessToken", persist: true, value: access });
+    return access;
   } catch (error) {
     console.error("Token refresh failed:", error);
     return null;
