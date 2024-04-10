@@ -2,6 +2,7 @@
 import {
   LoginRequest,
   LoginResponse,
+  RegisterRequest,
   User,
   UserRequest,
   UserResponse,
@@ -33,8 +34,8 @@ export const getUsers = async (query?: UserRequest): Promise<UserResponse> => {
   return response.data;
 };
 
-export const registerUser = async (userData: User) => {
-  const response = await axiosInstance.post<User>(userUrl, userData);
+export const registerUser = async (userData: UserRequest) => {
+  const response = await axiosInstance.post<RegisterRequest>(userUrl, userData);
   return response.data;
 };
 

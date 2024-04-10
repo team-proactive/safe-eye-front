@@ -9,7 +9,13 @@ import {
   userQueryKeys,
 } from "@/api/queries/USER_QUERIES";
 import { Storage } from "@/api/storage";
-import { LoginResponse, User, UserResponse } from "@/types/api/user";
+import {
+  LoginResponse,
+  RegisterRequest,
+  User,
+  UserRequest,
+  UserResponse,
+} from "@/types/api/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useUserById = (id: number) => {
@@ -29,8 +35,8 @@ export const useUsers = () => {
 export const useRegisterUser = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<User, Error, User>({
-    mutationFn: async (userData) => {
+  return useMutation<RegisterRequest, Error, RegisterRequest>({
+    mutationFn: async (userData: UserRequest) => {
       const user = await registerUser(userData);
       return user;
     },

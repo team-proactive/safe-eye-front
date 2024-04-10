@@ -14,6 +14,7 @@ export default function Home() {
       <Main>
         <Link href="/notice"> notice</Link>
         <Link href="/login">login</Link>
+        <Link href="/register">signup</Link>
       </Main>
     </Layout>
   );

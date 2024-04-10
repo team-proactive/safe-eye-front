@@ -13,10 +13,7 @@ interface UserWithToken extends User {
   token: string;
 }
 
-interface UserRequest extends Partial<User> {
-  email: string;
-  password: string;
-}
+interface UserRequest extends Omit<User, "id"> {}
 
 interface LoginRequest {
   email: string;
@@ -30,6 +27,10 @@ interface LoginResponse extends Token {
   };
 }
 
+interface RegisterRequest extends UserRequest {
+  nickname: string;
+}
+
 interface UserResponse {
   users: User[];
 }
@@ -37,6 +38,7 @@ interface UserResponse {
 export type {
   LoginRequest,
   LoginResponse,
+  RegisterRequest,
   User,
   UserRequest,
   UserResponse,
