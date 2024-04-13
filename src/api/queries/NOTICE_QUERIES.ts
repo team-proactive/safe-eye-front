@@ -1,6 +1,6 @@
 import { Notice, NoticeRequest, NoticeResponse } from "@/types/api/notice";
 import { notFound } from "next/navigation";
-import { NOTICE_BASE_URL } from "../constants/urls";
+import { NOTICE_BASE_URL } from "../constants/urls/notice";
 import axiosInstance from "../instance";
 
 export const noticeQueryKeys = {

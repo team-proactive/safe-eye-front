@@ -1,68 +1,94 @@
 import {
-  LoginRequest,
   LoginResponse,
   RegisterRequest,
   User,
   UserRequest,
-  UserResponse,
 } from "@/types/api/user";
-import { notFound } from "next/navigation";
 import {
-  USER_BASE_URL,
+  USERS_LIST_URL,
+  USER_DELETE_CUSTOM_URL,
+  USER_DELETE_URL,
+  USER_GENERATE_TOKEN_URL,
   USER_LOGIN_URL,
   USER_REGISTER_URL,
-} from "../constants/urls";
+  USER_UPDATE_URL,
+  userURLWithId,
+} from "../constants/urls/user";
 import axiosInstance from "../instance";
 import { Storage } from "../storage";
-
 export const userQueryKeys = {
+  allUsers: () => ["users"],
   user: (id: number) => ["user", id],
-  users: (query?: Partial<UserRequest>) => ["users", query],
 };
 
-export const getUserById = async (id: number) => {
+export const getUsers = async (): Promise<User[]> => {
+  const response = await axiosInstance.get<User[]>(USERS_LIST_URL);
+  return response.data;
+};
+
+export const getUserById = async (id: number): Promise<User> => {
   if (isNaN(id) || id <= 0) {
-    notFound();
+    throw new Error("Invalid user ID");
   }
-
-  const response = await axiosInstance.get<User>(`${USER_BASE_URL}${id}`);
+  const response = await axiosInstance.get<User>(userURLWithId(id));
   return response.data;
 };
 
-export const getUsers = async (query?: UserRequest): Promise<UserResponse> => {
-  const response = await axiosInstance.get<UserResponse>(USER_BASE_URL, {
-    params: query,
-  });
+export const registerUser = async (
+  userData: RegisterRequest
+): Promise<User> => {
+  const response = await axiosInstance.post<User>(USER_REGISTER_URL, userData);
   return response.data;
 };
 
-export const registerUser = async (userData: UserRequest) => {
-  const response = await axiosInstance.post<RegisterRequest>(
-    USER_LOGIN_URL,
-    userData
-  );
-  return response.data;
-};
-
-export const loginUser = async (userData: LoginRequest) => {
+export const loginUser = async (credentials: {
+  email: string;
+  password: string;
+}): Promise<LoginResponse> => {
   const response = await axiosInstance.post<LoginResponse>(
-    USER_REGISTER_URL,
-    userData
+    USER_LOGIN_URL,
+    credentials
   );
   const { refresh, access, user } = response.data;
-  Storage.set({ key: "refreshToken", persist: true, value: refresh });
-  Storage.set({ key: "accessToken", persist: true, value: access });
+  Storage.set({ key: "refreshToken", value: refresh, persist: true });
+  Storage.set({ key: "accessToken", value: access, persist: true });
   return response.data;
 };
 
-export const updateUser = async (id: number, updatedUser: Partial<User>) => {
+export const updateUser = async (
+  id: number,
+  updatedUser: Partial<User>
+): Promise<User> => {
   const response = await axiosInstance.put<User>(
-    `${USER_BASE_URL}${id}`,
+    USER_UPDATE_URL(id),
     updatedUser
   );
   return response.data;
 };
 
-export const deleteUser = async (id: number) => {
-  await axiosInstance.delete(`${USER_BASE_URL}${id}`);
+export const deleteUser = async (id: number): Promise<void> => {
+  await axiosInstance.delete(USER_DELETE_URL(id));
+};
+
+export const registerNormalUser = async (
+  userData: UserRequest
+): Promise<{ user: User; message: string }> => {
+  const response = await axiosInstance.post<{ user: User; message: string }>(
+    USER_REGISTER_URL,
+    userData
+  );
+  return response.data;
+};
+
+export const generateTokenForUser = async (
+  id: number
+): Promise<{ token: string }> => {
+  const response = await axiosInstance.post<{ token: string }>(
+    USER_GENERATE_TOKEN_URL(id)
+  );
+  return response.data;
+};
+
+export const deleteCustomUser = async (id: number): Promise<void> => {
+  await axiosInstance.delete(USER_DELETE_CUSTOM_URL(id));
 };
