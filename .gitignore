@@ -13,6 +13,9 @@
 /.next/
 /out/
 
+# peacock setting
+/.vscode/settings.json
+
 # production
 /build
 
