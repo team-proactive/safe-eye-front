@@ -1,14 +1,14 @@
-// app/login/layout.tsx
+// app/register/layout.tsx
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Login",
+    title: "Register",
     description: "Safe Eye, Detect all threats.",
     openGraph: {
-      title: "Login",
+      title: "Register",
       description: "Safe Eye, Detect all treats.",
-      url: "https://example.com/login",
+      url: "https://example.com/register",
       siteName: "Safe Eye",
       locale: "ko_KR",
       type: "website",
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function LoginLayout({
+export default function RegisterLayout({
   children,
 }: {
   children: React.ReactNode;

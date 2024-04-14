@@ -2,10 +2,10 @@ import Header from "./Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <section className="max-w-3xl min-h-screen mx-auto bg-black">
       <Header />
       {children}
-    </div>
+    </section>
   );
 }
 export const metadata = {

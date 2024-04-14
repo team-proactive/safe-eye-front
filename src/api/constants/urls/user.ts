@@ -9,6 +9,7 @@ export const USER_LOGOUT_URL = `${USER_BASE_URL}logout/`;
 export const ADMIN_REGISTER_URL = `${USER_BASE_URL}register-admin/`;
 export const USER_REGISTER_URL = `${USER_BASE_URL}register/`;
 export const USERS_LIST_URL = `${USER_BASE_URL}users/`;
+export const USER_URL = `${USER_BASE_URL}user/`;
 
 // Dynamic endpoints that require an ID
 // Function to generate URL for user by ID

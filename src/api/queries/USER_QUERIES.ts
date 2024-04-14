@@ -13,13 +13,19 @@ import {
   USER_LOGOUT_URL,
   USER_REGISTER_URL,
   USER_UPDATE_URL,
+  USER_URL,
   userURLWithId,
 } from "../constants/urls/user";
 import axiosInstance from "../instance";
 
 export const userQueryKeys = {
   allUsers: () => ["users"],
-  user: (id: number) => ["user", id],
+  user: (id?: number) => ["user", id],
+};
+
+export const getUser = async (): Promise<User> => {
+  const response = await axiosInstance.get<User>(USER_URL);
+  return response.data;
 };
 
 export const getUsers = async (): Promise<User[]> => {
