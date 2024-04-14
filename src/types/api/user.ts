@@ -4,6 +4,7 @@ interface UserLoginStatus {
   id: number;
   available: boolean;
 }
+
 interface User {
   id: number;
   email: string;

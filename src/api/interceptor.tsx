@@ -15,7 +15,6 @@ const verifyAccessToken = async (accessToken: string): Promise<boolean> => {
     return false;
   }
 };
-
 const refreshAccessToken = async (): Promise<string | null> => {
   const refreshToken = Storage.get({ key: "refreshToken", persist: true });
   try {
@@ -28,6 +27,11 @@ const refreshAccessToken = async (): Promise<string | null> => {
     return access;
   } catch (error) {
     console.error("Token refresh failed:", error);
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      // 리프레시 토큰이 만료되었을 때 로그아웃 처리
+      useUserStore.getState().setAccessToken(null);
+      Storage.set({ key: "refreshToken", value: "", persist: true });
+    }
     return null;
   }
 };
@@ -71,12 +75,21 @@ const useResponseErrorInterceptor = async (error: AxiosError | Error) => {
   }
 };
 
-const requestInterceptor = (config: InternalAxiosRequestConfig) => {
-  const accessToken = useUserStore.getState().accessToken;
+const requestInterceptor = async (config: InternalAxiosRequestConfig) => {
+  let accessToken = useUserStore.getState().accessToken;
+  if (!accessToken) {
+    accessToken = await refreshAccessToken();
+    if (!accessToken) {
+      // 리프레시 토큰도 만료되었을 때 로그아웃 처리
+      useUserStore.getState().setAccessToken(null);
+      Storage.set({ key: "refreshToken", value: "", persist: true });
+      return config;
+    }
+  }
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
-  console.log(config.headers);
+
   return config;
 };
 

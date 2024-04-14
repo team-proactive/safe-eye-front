@@ -1,6 +1,7 @@
 // pages/signup.tsx
 "use client";
 import { useRegisterUser } from "@/api/hooks/useUser";
+import Layout from "@/components/Layout";
 import { RegisterRequest } from "@/types/api/user";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -30,7 +31,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div>
+    <Layout>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -64,6 +65,6 @@ export default function SignupPage() {
           {isPending ? "Signing up..." : "Signup"}
         </button>
       </form>
-    </div>
+    </Layout>
   );
 }

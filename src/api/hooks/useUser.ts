@@ -3,6 +3,7 @@ import {
   deleteCustomUser,
   deleteUser,
   generateTokenForUser,
+  getUser,
   getUserById,
   getUsers,
   loginUser,
@@ -26,6 +27,13 @@ export const useUserById = (id: number) => {
   return useQuery<User, Error>({
     queryKey: userQueryKeys.user(id),
     queryFn: () => getUserById(id),
+  });
+};
+
+export const useUser = () => {
+  return useQuery<User, Error>({
+    queryKey: userQueryKeys.user(),
+    queryFn: getUser,
   });
 };
 

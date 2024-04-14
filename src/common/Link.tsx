@@ -9,7 +9,7 @@ interface LinkProps {
 }
 
 const StyledLink = styled.li`
-  ${tw`no-underline text-black dark:text-white`}
+  ${tw`no-underline text-white `}
 `;
 
 const CustomLink = ({ href, children }: LinkProps) => {

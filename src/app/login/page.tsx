@@ -1,54 +1,75 @@
 "use client";
 import { useLoginUser } from "@/api/hooks/useUser";
+import Input from "@/common/Input";
+import Layout from "@/components/Layout";
+import { RegisterFormRequest } from "@/types/form/user";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export default function LoginPage() {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ email: string; password: string }>();
-
+  } = useForm<RegisterFormRequest>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
   const router = useRouter();
-
   const { mutate: login, isPending } = useLoginUser();
 
-  const onSubmit = (data: { email: string; password: string }) => {
+  const onSubmit: SubmitHandler<RegisterFormRequest> = (data) =>
     login(data, {
       onSuccess: (response) => {
         router.push("/");
       },
     });
-  };
 
   return (
-    <div>
+    <Layout>
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            {...register("email", { required: "Email is required" })}
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: "Email is required" }}
+            render={({ field }) => (
+              <Input
+                {...field}
+                control={control}
+                type="email"
+                placeholder="Email"
+                error={errors.email?.message}
+              />
+            )}
           />
-          {errors.email && <span>{errors.email.message}</span>}
         </div>
         <div>
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            autoComplete="password"
-            {...register("password", { required: "Password is required" })}
+          <Controller
+            control={control}
+            name="password"
+            rules={{ required: "Password is required" }}
+            render={({ field }) => (
+              <Input
+                {...field}
+                control={control}
+                type="password"
+                placeholder="Password"
+                autoComplete="new-password"
+                error={errors.password?.message}
+              />
+            )}
           />
-          {errors.password && <span>{errors.password.message}</span>}
         </div>
         <button type="submit" disabled={isPending}>
           {isPending ? "Logging in..." : "Login"}
         </button>
       </form>
-    </div>
+    </Layout>
   );
 }
