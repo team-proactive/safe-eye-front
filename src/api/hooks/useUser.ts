@@ -6,12 +6,14 @@ import {
   getUserById,
   getUsers,
   loginUser,
+  logoutUser,
   registerNormalUser,
   registerUser,
   updateUser,
   userQueryKeys,
 } from "@/api/queries/USER_QUERIES";
 import { Storage } from "@/api/storage";
+import { useUserStore } from "@/store/userStore";
 import {
   LoginResponse,
   RegisterRequest,
@@ -46,15 +48,26 @@ export const useRegisterUser = () => {
 };
 
 export const useLoginUser = () => {
+  const setAccessToken = useUserStore((state) => state.setAccessToken);
+
   return useMutation<LoginResponse, Error, { email: string; password: string }>(
     {
       mutationFn: loginUser,
       onSuccess: ({ refresh, access }) => {
         Storage.set({ key: "refreshToken", value: refresh, persist: true });
-        Storage.set({ key: "accessToken", value: access, persist: true });
+        setAccessToken(access);
       },
     }
   );
+};
+
+export const useLogoutUser = () => {
+  return useMutation<void, Error, void>({
+    mutationFn: logoutUser,
+    onSuccess: () => {
+      Storage.set({ key: "refreshToken", value: "", persist: true });
+    },
+  });
 };
 
 export const useUpdateUser = () => {

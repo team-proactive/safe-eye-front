@@ -10,12 +10,13 @@ import {
   USER_DELETE_URL,
   USER_GENERATE_TOKEN_URL,
   USER_LOGIN_URL,
+  USER_LOGOUT_URL,
   USER_REGISTER_URL,
   USER_UPDATE_URL,
   userURLWithId,
 } from "../constants/urls/user";
 import axiosInstance from "../instance";
-import { Storage } from "../storage";
+
 export const userQueryKeys = {
   allUsers: () => ["users"],
   user: (id: number) => ["user", id],
@@ -49,10 +50,15 @@ export const loginUser = async (credentials: {
     USER_LOGIN_URL,
     credentials
   );
-  const { refresh, access, user } = response.data;
-  Storage.set({ key: "refreshToken", value: refresh, persist: true });
-  Storage.set({ key: "accessToken", value: access, persist: true });
   return response.data;
+};
+
+export const logoutUser = async (): Promise<void> => {
+  try {
+    await axiosInstance.post(USER_LOGOUT_URL, null, {});
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
 };
 
 export const updateUser = async (

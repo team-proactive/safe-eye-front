@@ -4,6 +4,8 @@ export const USER_BASE_URL = "/accounts/";
 // Endpoints related to account actions
 export const USER_LOGIN_URL = `${USER_BASE_URL}login/`;
 
+export const USER_LOGOUT_URL = `${USER_BASE_URL}logout/`;
+
 export const ADMIN_REGISTER_URL = `${USER_BASE_URL}register-admin/`;
 export const USER_REGISTER_URL = `${USER_BASE_URL}register/`;
 export const USERS_LIST_URL = `${USER_BASE_URL}users/`;
