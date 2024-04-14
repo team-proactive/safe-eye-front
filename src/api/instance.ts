@@ -1,10 +1,16 @@
-// axiosConfig.ts
+// instance.ts
 import axios from "axios";
+import { requestInterceptor, useResponseErrorInterceptor } from "./interceptor";
 
-// Axios 인스턴스 생성
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/", // API의 Base URL 설정
-  withCredentials: true, // CORS 시, 인증 정보를 함께 보내기 위한 설정
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  withCredentials: true,
 });
+
+axiosInstance.interceptors.request.use(requestInterceptor);
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  useResponseErrorInterceptor
+);
 
 export default axiosInstance;

@@ -1,7 +1,14 @@
+type Role = "admin" | "user" | "superuser";
+
+interface UserLoginStatus {
+  id: number;
+  available: boolean;
+}
 interface User {
   id: number;
   email: string;
   nickname: string;
+  role: Role;
 }
 
 interface Token {
@@ -24,11 +31,18 @@ interface LoginResponse extends Token {
   user: {
     email: string;
     nickname: string;
+    role: Role;
   };
 }
 
-interface RegisterRequest extends UserRequest {
-  nickname: string;
+interface LoginCheckResponse {
+  status: UserLoginStatus;
+  content: User;
+}
+
+interface RegisterRequest extends Omit<UserRequest, "role"> {
+  password: string;
+  role: Role;
 }
 
 interface UserResponse {
@@ -36,10 +50,13 @@ interface UserResponse {
 }
 
 export type {
+  LoginCheckResponse,
   LoginRequest,
   LoginResponse,
   RegisterRequest,
+  Role,
   User,
+  UserLoginStatus,
   UserRequest,
   UserResponse,
   UserWithToken,

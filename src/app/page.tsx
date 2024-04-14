@@ -1,4 +1,6 @@
+// page.tsx
 "use client";
+import { useLogoutUser } from "@/api/hooks/useUser";
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import styled from "styled-components";
@@ -9,12 +11,19 @@ const Main = styled.main`
 `;
 
 export default function Home() {
+  const logoutMutation = useLogoutUser();
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
+
   return (
     <Layout>
       <Main>
         <Link href="/notice"> notice</Link>
         <Link href="/login">login</Link>
         <Link href="/register">signup</Link>
+        <button onClick={handleLogout}>Logout</button>
       </Main>
     </Layout>
   );
