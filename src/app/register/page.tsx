@@ -10,7 +10,12 @@ export default function SignupPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ email: string; password: string; nickname: string }>();
+  } = useForm<{
+    email: string;
+    password: string;
+    nickname: string;
+    role: "superuser";
+  }>();
 
   const router = useRouter();
 

@@ -17,8 +17,6 @@ export default function LoginPage() {
   const onSubmit = (data: { email: string; password: string }) => {
     login(data, {
       onSuccess: (response) => {
-        // JWT 토큰을 클라이언트에 저장 (예: localStorage)
-        localStorage.setItem("token", response.refresh);
         router.push("/");
       },
     });
