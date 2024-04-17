@@ -11,8 +11,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className=" bg-black h-full">
-      <body className={`${inter.className} m-0 p-0 bg-black`}>
+    <html lang="ko" className=" bg-black h-full scrollbar-hide">
+      <body className={`${inter.className} m-0 p-0 bg-black `}>
         <Providers>
           <StyledComponentsRegistry>
             <GlobalStyles />
